@@ -6,16 +6,18 @@ def dot():
     print('.')
     
 def dash():
-    pass
+    print('-')
 
 async def main():
     btn_red.close_func(dot)
+    btn_green.close_func(dash)
     while True:
         await asyncio.sleep(.01)
 
 if __name__ == "__main__":
     try:
         btn_red = Switch( Pin(18, Pin.IN, Pin.PULL_UP) )
+        btn_green = Switch( Pin(5, Pin.IN, Pin.PULL_UP) )
         asyncio.run(main())
     finally:
         print('goodbye')
