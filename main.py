@@ -14,13 +14,15 @@ MORSE_CODE = {
 
 def dot():
     morse.append('.')
-    print(morse)
+#     print(morse)
     t1 = asyncio.create_task(dotstar.async_flicker((191,64,191,.5), .1))
+    t2 = asyncio.create_task(buzzer.async_flicker(.1))
     
 def dash():
     morse.append('-')
-    print(morse)
+#     print(morse)
     t1 = asyncio.create_task(dotstar.async_flicker((191,64,191,.5), .2))
+    t2 = asyncio.create_task(buzzer.async_flicker(.2))
 
 def decode():
     morse_str = ''.join(map(str, morse))
@@ -44,8 +46,10 @@ if __name__ == "__main__":
         btn_blue = Switch( Pin(22, Pin.IN, Pin.PULL_UP) )
         dotstar = TinyPICODotStar()
         dotstar.off()
+        buzzer = Output(Pin(25, Pin.OUT))
         morse = []
         asyncio.run(main())
     finally:
         print('goodbye')
         dotstar.kill()
+        buzzer.off()
